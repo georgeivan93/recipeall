@@ -1,22 +1,30 @@
 {
-  "dependencies": {
-    "core-js": "^3.29.1",
-    "parcel": "^2.8.3",
-    "regenerator-runtime": "^0.13.11",
-    "sass": "^1.60.0"
-  },
   "devDependencies": {
     "@parcel/transformer-sass": "^2.8.3",
     "process": "^0.11.10"
   },
-  "name": "forkify",
+  "dependencies": {
+    "core-js": "^3.29.1",
+    "fractional": "^1.0.0",
+    "parcel": "^2.8.3",
+    "regenerator-runtime": "^0.13.11"
+  },
+  "name": "prac",
   "version": "1.0.0",
-  "description": "Recipe application",
+  "description": "Recipe App",
   "main": "index.js",
   "scripts": {
     "start": "parcel index.html",
-    "build": "parcel build index.html"
+    "build": "parcel build index.html --dist-dir ./dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/georgeivan93/recipeall.git"
   },
   "author": "George Ivan",
-  "license": "ISC"
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/georgeivan93/recipeall/issues"
+  },
+  "homepage": "https://github.com/georgeivan93/recipeall#readme"
 }
