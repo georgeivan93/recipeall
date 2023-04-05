@@ -1,33 +1,53 @@
 import 'core-js/stable';
 import { async, mark } from 'regenerator-runtime';
 import 'regenerator-runtime/runtime';
-import icons from 'url:../img/icons.svg';
+
 import * as model from './model22.js';
-import RecipeView22 from './views/rV2';
+import RecipeView22 from './views2/rV2';
+import searchView from './views2/searchvi.js';
+import resultsView from './views2/resview.js';
 
-const recipeContainer = document.querySelector('.recipe');
+if (module.hot) {
+  module.hot.accept();
+}
 
-const timeout = function (s) {
-  return new Promise(function (_, reject) {
-    setTimeout(() => {
-      reject(new Error(`Request took to long! Timeout after ${s} seconds`));
-    }, s * 1000);
-  });
-};
-
-const controlRecipes = async function (parentEl) {
+const controlRecipes = async function () {
   try {
     const id = window.location.hash.slice(1);
+
     if (!id) return;
+    RecipeView22.renderSpinner();
+
+    // Loading recipe
     await model.loadRecipe(id);
 
     // Render
     RecipeView22.render(model.state.recipe);
   } catch (err) {
-    alert(err);
+    RecipeView22.renderError();
   }
 };
 
-['hashchange', 'load'].forEach(ev =>
-  window.addEventListener(ev, controlRecipes)
-);
+const controlSearchResults = async function () {
+  try {
+    resultsView.renderSpinner();
+    // Get search query
+    const query = searchView.getQuery();
+    if (!query) return;
+
+    // Load search results
+    await model.loadSearchResults(query);
+
+    // Render results
+
+    resultsView.render(model.state.search.results);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+const init = function () {
+  RecipeView22.addHandlerRender(controlRecipes);
+  searchView.addHandlerSearch(controlSearchResults);
+};
+init();
